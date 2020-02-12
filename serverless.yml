@@ -7,8 +7,8 @@ provider:
   region: ap-northeast-2
 
 functions:
-  hello:
-    handler: handler.hello
+  app:
+    handler: app.handler
     events:
       - http:
           path: /
