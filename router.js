@@ -4,14 +4,8 @@ const AWS = require("aws-sdk");
 const multer = require("@koa/multer");
 const multerS3 = require("multer-s3");
 
-const config = require("./config");
 const router = new Router();
-
-const s3 = new AWS.S3({
-  accessKeyId: config.AWS_ACCESS_KEY_ID,
-  secretAccessKey: config.AWS_SECRET_ACCESS_KEY,
-  region: config.AWS_REGION
-});
+const s3 = new AWS.S3();
 
 router.get("/", ctx => {
   ctx.body = {
@@ -22,7 +16,7 @@ router.get("/", ctx => {
 const upload = multer({
   storage: multerS3({
     s3: s3,
-    bucket: config.AWS_S3_BUCKET_NAME,
+    bucket: "s3-image-upload-resources",
     key: function(req, file, cb) {
       cb(null, Date.now().toString() + "_" + file.originalname);
     }
